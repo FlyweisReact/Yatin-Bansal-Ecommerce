@@ -46,11 +46,7 @@ const Coupon = () => {
         const { data } = await axios.post(
           `${Baseurl}api/v1/coupon`,
           { couponCode, activationDate, expirationDate, discount, minOrder },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
+          Auth
         );
         props.onHide();
         fetchData();
@@ -123,11 +119,10 @@ const Coupon = () => {
 
   const deleteData = async (id) => {
     try {
-      const { data } = await axios.delete(`${Baseurl}api/v1/coupon/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const { data } = await axios.delete(
+        `${Baseurl}api/v1/coupon/${id}`,
+        Auth
+      );
       fetchData();
       showMsg("Success", "Coupon Removed !", "success");
     } catch (e) {
@@ -147,7 +142,9 @@ const Coupon = () => {
           <span className="tracking-widest text-slate-900 font-semibold uppercase ">
             All Coupons
           </span>
-          <button onClick={() => setModalShow(true)}>Add Coupon</button>
+          <button onClick={() => setModalShow(true)} >
+            Add Coupon
+          </button>
         </div>
 
         <div className="table-component">

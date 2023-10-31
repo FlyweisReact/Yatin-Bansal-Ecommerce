@@ -26,8 +26,7 @@ const VendorLogin = () => {
         phone,
         password,
       });
-      localStorage.setItem("token", data.token);
-
+      localStorage.setItem("token", data?.token);
       showMsg("Success", "Welcome Admin", "success");
       setLoading(false);
       navigate("/vendorDashboard");

@@ -11,7 +11,7 @@ const VendorDashboard = () => {
   const [user, setUser] = useState(0);
   const [product, setProduct] = useState(0);
   const [order, setOrder] = useState(0);
-  const [cat, setCat] = useState(0);
+  const [ cat , setCat ] = useState()
 
   const fetchUser = async () => {
     try {
@@ -48,6 +48,7 @@ const VendorDashboard = () => {
     }
   };
 
+
   const fetchcategory = async () => {
     try {
       const { data } = await axios.get(
@@ -59,11 +60,12 @@ const VendorDashboard = () => {
     }
   };
 
+
   useEffect(() => {
     fetchUser();
     fetchProduct();
     fetchOrder();
-    fetchcategory();
+    fetchcategory()
   }, []);
 
   const card = [
@@ -72,7 +74,6 @@ const VendorDashboard = () => {
       title: "All Users",
       number: user,
       icon: <FaUserFriends className="text-2xl text-[#0D99FF]" />,
-    
     },
     {
       progress: "bg-green-400",
@@ -89,7 +90,7 @@ const VendorDashboard = () => {
     {
       progress: "bg-yellow-400",
       title: "All Categories",
-      number: cat,
+      number: "150",
       icon: <MdDashboardCustomize className="text-2xl text-[#0D99FF]" />,
     },
   ];

@@ -33,11 +33,7 @@ const Users = () => {
     try {
       const { data } = await axios.delete(
         `${Baseurl}api/v1/admin/user/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+        Auth
       );
       fetchData();
       const msg = data.message;

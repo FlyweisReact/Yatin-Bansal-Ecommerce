@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import HOC from "../../layout/HOC";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
-import { Baseurl } from "../../../../../Baseurl";
+import { Baseurl, Auth } from "../../../../../Baseurl";
 
 const Order = () => {
   const [data, setData] = useState([]);

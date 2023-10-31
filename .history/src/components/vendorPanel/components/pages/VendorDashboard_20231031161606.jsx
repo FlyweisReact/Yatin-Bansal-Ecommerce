@@ -5,13 +5,9 @@ import HOC from "../../../vendorPanel/components/layout/HOC";
 import { MdDashboardCustomize, MdOutlineLibraryBooks } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
 import axios from "axios";
-import { Baseurl } from "../../../../Baseurl";
 
 const VendorDashboard = () => {
   const [user, setUser] = useState(0);
-  const [product, setProduct] = useState(0);
-  const [order, setOrder] = useState(0);
-  const [cat, setCat] = useState(0);
 
   const fetchUser = async () => {
     try {
@@ -26,44 +22,8 @@ const VendorDashboard = () => {
     }
   };
 
-  const fetchProduct = async () => {
-    try {
-      const { data } = await axios.get(`${Baseurl}api/v1/products`);
-      setProduct(data?.products?.length);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const fetchOrder = async () => {
-    try {
-      const { data } = await axios.get(`${Baseurl}api/v1/admin/orders`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      setOrder(data?.data?.length);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const fetchcategory = async () => {
-    try {
-      const { data } = await axios.get(
-        `${Baseurl}api/v1/catogory/getAllCategory`
-      );
-      setCat(data?.categories?.length);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   useEffect(() => {
-    fetchUser();
-    fetchProduct();
-    fetchOrder();
-    fetchcategory();
+    fetchData();
   }, []);
 
   const card = [
@@ -72,24 +32,23 @@ const VendorDashboard = () => {
       title: "All Users",
       number: user,
       icon: <FaUserFriends className="text-2xl text-[#0D99FF]" />,
-    
     },
     {
       progress: "bg-green-400",
       title: "All Products",
-      number: product,
+      number: "100",
       icon: <MdOutlineLibraryBooks className="text-2xl text-[#0D99FF]" />,
     },
     {
       progress: "bg-yellow-400",
       title: "All Orders",
-      number: order,
+      number: "150",
       icon: <MdDashboardCustomize className="text-2xl text-[#0D99FF]" />,
     },
     {
       progress: "bg-yellow-400",
       title: "All Categories",
-      number: cat,
+      number: "150",
       icon: <MdDashboardCustomize className="text-2xl text-[#0D99FF]" />,
     },
   ];

@@ -1,10 +1,10 @@
 /** @format */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import HOC from "../../layout/HOC";
 import Table from "react-bootstrap/Table";
 import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
 import axios from "axios";
-import { Baseurl, showMsg } from "../../../../../Baseurl";
+import { Baseurl, showMsg, Auth } from "../../../../../Baseurl";
 
 const Product = () => {
   const [modalShow, setModalShow] = React.useState(false);
@@ -12,6 +12,25 @@ const Product = () => {
   const [id, setId] = useState("");
   const [edit, setEdit] = useState(false);
 
+  // Owl Carousel
+  const carouselRef = useRef(null);
+  const options = {
+    items: 1,
+    nav: false,
+    rewind: true,
+    autoplay: true,
+    autoplayTimeout: 5000,
+    autoplayHoverPause: true,
+    onInitialized: () => {
+      const carousel = carouselRef.current;
+      const items = carousel.querySelectorAll(".owl-item");
+      const containerWidth = carousel.clientWidth;
+
+      items.forEach((item) => {
+        item.style.width = `${containerWidth}px`;
+      });
+    },
+  };
 
   function MyVerticallyCenteredModal(props) {
     const [categoryP, setP] = useState([]);
@@ -258,11 +277,7 @@ const Product = () => {
     try {
       const { data } = await axios.delete(
         `${Baseurl}api/v1/admin/product/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
+        Auth
       );
       showMsg("Success", "Product removed !", "info");
       fetchData();
@@ -317,11 +332,7 @@ const Product = () => {
               {data?.products?.map((i, index) => (
                 <tr key={index}>
                   <td>
-                    <img
-                      src={i.images?.[0]?.img}
-                      style={{ maxWidth: "100px" }}
-                      alt=""
-                    />
+                    <img src={i.images?.[0]?.img} style={{maxWidth : '100px'}} alt="" />
                   </td>
                   <td>{i.name} </td>
                   <td>{i.description}</td>

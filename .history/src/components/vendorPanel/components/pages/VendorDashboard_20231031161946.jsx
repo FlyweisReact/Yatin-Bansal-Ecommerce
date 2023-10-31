@@ -72,7 +72,6 @@ const VendorDashboard = () => {
       title: "All Users",
       number: user,
       icon: <FaUserFriends className="text-2xl text-[#0D99FF]" />,
-    
     },
     {
       progress: "bg-green-400",
