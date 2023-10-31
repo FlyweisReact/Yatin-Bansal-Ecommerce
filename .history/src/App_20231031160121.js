@@ -1,9 +1,16 @@
 /** @format */
 
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
+import Login from "./components/forms/Login";
+import Dashboard from "./components/pages/Dashboard";
+import { ToastContainer } from "react-toastify";
 import MSG from "./components/vendorPanel/components/pages/Message/Message";
+import "react-toastify/dist/ReactToastify.css";
+import UserKundli from "./components/pages/UserKundli/UserKundli";
+import Discount from "./components/pages/discount/Discount";
 import VendorLogin from "./components/vendorPanel/components/forms/VendorLogin";
 import VendorDashboard from "./components/vendorPanel/components/pages/VendorDashboard";
+import Fedd from "./components/pages/FeedBack/Fedd";
 import Users from "./components/vendorPanel/components/pages/Users/Users";
 import Product from "./components/vendorPanel/components/pages/Products/Product";
 import Category from "./components/vendorPanel/components/pages/Category/Category";

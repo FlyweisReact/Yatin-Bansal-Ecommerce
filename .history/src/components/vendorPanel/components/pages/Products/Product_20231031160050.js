@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import HOC from "../../layout/HOC";
 import Table from "react-bootstrap/Table";
+import "react-owl-carousel2/lib/styles.css";
 import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
 import axios from "axios";
 import { Baseurl, showMsg, Auth } from "../../../../../Baseurl";
@@ -328,7 +329,7 @@ const Product = () => {
               {data?.products?.map((i, index) => (
                 <tr key={index}>
                   <td>
-                    <img src={i.images?.[0]?.img} style={{maxWidth : '100px'}} alt="" />
+                    <img src={i.images?.[0]?.img} alt="" />
                   </td>
                   <td>{i.name} </td>
                   <td>{i.description}</td>

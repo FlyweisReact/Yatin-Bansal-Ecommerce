@@ -21,6 +21,8 @@
     "react-icons": "^4.4.0",
     "react-loader-spinner": "^5.1.5",
     "react-notifications-component": "^4.0.1",
+    "react-owl-carousel": "^2.3.3",
+    "react-owl-carousel2": "^0.3.0",
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",

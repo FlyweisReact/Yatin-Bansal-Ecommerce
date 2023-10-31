@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import HOC from "../../layout/HOC";
 import Table from "react-bootstrap/Table";
+import "react-owl-carousel2/lib/styles.css";
 import { Button, FloatingLabel, Form, Modal } from "react-bootstrap";
 import axios from "axios";
 import { Baseurl, showMsg, Auth } from "../../../../../Baseurl";
@@ -105,7 +106,11 @@ const Product = () => {
         const { data } = await axios.put(
           `${Baseurl}api/v1/admin/product/${id}`,
           fd,
-          Auth
+          {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjUxNTM1YTk4YjcwOTc1YjgyZWU3OWMzIiwiaWF0IjoxNjk4NzMzMzYxfQ.9Kj-ii2QHtgsw91gRUqcRxwiyUMtbC_4kw9MntqEg6w`,
+            },
+          }
         );
         showMsg("Success", "Product Updated !", "success");
         props.onHide();
@@ -328,7 +333,15 @@ const Product = () => {
               {data?.products?.map((i, index) => (
                 <tr key={index}>
                   <td>
-                    <img src={i.images?.[0]?.img} style={{maxWidth : '100px'}} alt="" />
+                    <OwlCarousel
+                      options={options}
+                      style={{ width: "120px" }}
+                      ref={carouselRef}
+                    >
+                      {i.images?.map((img, index) => (
+                        <img src={img.img} alt="" key={index} />
+                      ))}
+                    </OwlCarousel>
                   </td>
                   <td>{i.name} </td>
                   <td>{i.description}</td>

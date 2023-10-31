@@ -2,6 +2,7 @@
 
 import { Routes, Route } from "react-router-dom"
 import MSG from "./components/vendorPanel/components/pages/Message/Message";
+import "react-toastify/dist/ReactToastify.css";
 import VendorLogin from "./components/vendorPanel/components/forms/VendorLogin";
 import VendorDashboard from "./components/vendorPanel/components/pages/VendorDashboard";
 import Users from "./components/vendorPanel/components/pages/Users/Users";
