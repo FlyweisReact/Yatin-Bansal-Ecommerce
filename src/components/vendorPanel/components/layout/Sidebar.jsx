@@ -36,11 +36,11 @@ const Sidebar = ({ hamb, setHamb }) => {
       link: "/ban",
       name: "Banner",
     },
-    {
-      icon: <FiImage className="text-xl mr-3" />,
-      link: "/subAdmin",
-      name: "Sub-Admin",
-    },
+    // {
+    //   icon: <FiImage className="text-xl mr-3" />,
+    //   link: "/subAdmin",
+    //   name: "Sub-Admin",
+    // },
     {
       icon: <BiCategory className="text-xl mr-3" />,
       link: "/category",
