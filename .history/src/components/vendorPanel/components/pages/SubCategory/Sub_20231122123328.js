@@ -147,10 +147,10 @@ const Sub = () => {
   const deleteData = async (id) => {
     try {
       const { data } = await axios.delete(
-        `${Baseurl}api/v1/admin/subCategory/delete/${id}`
+        `${Baseurl}api/v1/admin/delete/cat/${id}`
       );
       fetchData();
-      showMsg("Success", "Removed !", "success");
+      showMsg("Success", "Category Removed !", "success");
     } catch (e) {
       console.log(e);
     }

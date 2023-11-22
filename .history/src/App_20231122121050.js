@@ -1,6 +1,6 @@
 /** @format */
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom"
 import MSG from "./components/vendorPanel/components/pages/Message/Message";
 import VendorLogin from "./components/vendorPanel/components/forms/VendorLogin";
 import VendorDashboard from "./components/vendorPanel/components/pages/VendorDashboard";
@@ -41,7 +41,7 @@ function App() {
         <Route path="/deliveryOrder/:id" element={<DeliveryOrder />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/term" element={<Terms />} />
-        <Route path="/sub_category" element={<Sub />} />
+        <Route path="/sub_category" element={<Sub />}
       </Routes>
     </>
   );

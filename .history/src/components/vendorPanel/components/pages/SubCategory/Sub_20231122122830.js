@@ -33,13 +33,12 @@ const Sub = () => {
   }, []);
 
   function MyVerticallyCenteredModal(props) {
-    const [image, setImage] = useState();
-    const [name, setName] = useState(previousData?.subCategory);
-    const [categoryId, setCategoryId] = useState(
-      previousData?.parentCategory?._id
-    );
-
+    const [image, setImage] = useState(previousData?.image);
+    const [name, setName] = useState("");
+    const [categoryId, setCategoryId] = useState("");
     const [categoryArr, setCategoryArr] = useState([]);
+
+    console.log(previousData)
 
     const fd = new FormData();
     fd.append("image", image);
@@ -79,11 +78,11 @@ const Sub = () => {
     const editHandler = async (e) => {
       e.preventDefault();
       try {
-        const { data } = await axios.put(
+        const { data } = await axios.post(
           `${Baseurl}api/v1/admin/subCategory/update/${id}`,
           fd
         );
-        showMsg("Success", "Updated !", "success");
+        showMsg("Success", "Created", "success");
         props.onHide();
         fetchData();
       } catch (e) {
@@ -117,7 +116,6 @@ const Sub = () => {
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
@@ -147,10 +145,10 @@ const Sub = () => {
   const deleteData = async (id) => {
     try {
       const { data } = await axios.delete(
-        `${Baseurl}api/v1/admin/subCategory/delete/${id}`
+        `${Baseurl}api/v1/admin/delete/cat/${id}`
       );
       fetchData();
-      showMsg("Success", "Removed !", "success");
+      showMsg("Success", "Category Removed !", "success");
     } catch (e) {
       console.log(e);
     }
@@ -208,7 +206,7 @@ const Sub = () => {
                     <i
                       className="fa-solid fa-pen-to-square"
                       onClick={() => {
-                        setPreviousData(i);
+                        setPreviousData(i)
                         setId(i._id);
                         setEdit(true);
                         setModalShow(true);

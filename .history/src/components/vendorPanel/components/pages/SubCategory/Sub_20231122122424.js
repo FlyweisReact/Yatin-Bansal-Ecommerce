@@ -14,8 +14,6 @@ const Sub = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [edit, setEdit] = useState(false);
   const [data, setData] = useState([]);
-  const [id, setId] = useState("");
-  const [previousData, setPreviousData] = useState({});
 
   const fetchData = async () => {
     try {
@@ -33,12 +31,9 @@ const Sub = () => {
   }, []);
 
   function MyVerticallyCenteredModal(props) {
-    const [image, setImage] = useState();
-    const [name, setName] = useState(previousData?.subCategory);
-    const [categoryId, setCategoryId] = useState(
-      previousData?.parentCategory?._id
-    );
-
+    const [image, setImage] = useState("");
+    const [name, setName] = useState("");
+    const [categoryId, setCategoryId] = useState("");
     const [categoryArr, setCategoryArr] = useState([]);
 
     const fd = new FormData();
@@ -75,22 +70,7 @@ const Sub = () => {
         console.log(e);
       }
     };
-
-    const editHandler = async (e) => {
-      e.preventDefault();
-      try {
-        const { data } = await axios.put(
-          `${Baseurl}api/v1/admin/subCategory/update/${id}`,
-          fd
-        );
-        showMsg("Success", "Updated !", "success");
-        props.onHide();
-        fetchData();
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
+    
     return (
       <Modal
         {...props}
@@ -104,7 +84,7 @@ const Sub = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={edit ? editHandler : postData}>
+          <Form onSubmit={postData}>
             <Form.Group className="mb-3">
               <Form.Label>Image</Form.Label>
               <Form.Control
@@ -117,7 +97,6 @@ const Sub = () => {
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
@@ -147,10 +126,10 @@ const Sub = () => {
   const deleteData = async (id) => {
     try {
       const { data } = await axios.delete(
-        `${Baseurl}api/v1/admin/subCategory/delete/${id}`
+        `${Baseurl}api/v1/admin/delete/cat/${id}`
       );
       fetchData();
-      showMsg("Success", "Removed !", "success");
+      showMsg("Success", "Category Removed !", "success");
     } catch (e) {
       console.log(e);
     }
@@ -198,21 +177,11 @@ const Sub = () => {
                     />
                   </td>
                   <td> {i.subCategory} </td>
-                  <td> {i.parentCategory?.name} </td>
+                  <td> {i.parentCategory} </td>
                   <td>
                     <i
-                      className="fa-solid fa-trash mr-2"
+                      className="fa-solid fa-trash"
                       onClick={() => deleteData(i._id)}
-                    ></i>
-
-                    <i
-                      className="fa-solid fa-pen-to-square"
-                      onClick={() => {
-                        setPreviousData(i);
-                        setId(i._id);
-                        setEdit(true);
-                        setModalShow(true);
-                      }}
                     ></i>
                   </td>
                 </tr>

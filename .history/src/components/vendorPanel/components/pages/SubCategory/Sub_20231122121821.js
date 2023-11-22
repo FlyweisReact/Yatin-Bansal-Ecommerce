@@ -14,8 +14,6 @@ const Sub = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const [edit, setEdit] = useState(false);
   const [data, setData] = useState([]);
-  const [id, setId] = useState("");
-  const [previousData, setPreviousData] = useState({});
 
   const fetchData = async () => {
     try {
@@ -33,64 +31,27 @@ const Sub = () => {
   }, []);
 
   function MyVerticallyCenteredModal(props) {
-    const [image, setImage] = useState();
-    const [name, setName] = useState(previousData?.subCategory);
-    const [categoryId, setCategoryId] = useState(
-      previousData?.parentCategory?._id
-    );
-
-    const [categoryArr, setCategoryArr] = useState([]);
+    const [image, setImage] = useState("");
+    const [desc, setDesc] = useState("");
 
     const fd = new FormData();
     fd.append("image", image);
-    fd.append("name", name);
-    fd.append("categoryId", categoryId);
-
-    const fetchCategory = async () => {
-      try {
-        const { data } = await axios.get(
-          `${Baseurl}api/v1/catogory/getAllCategory`
-        );
-        setCategoryArr(data?.categories);
-      } catch {}
-    };
-
-    useEffect(() => {
-      if (props.show) {
-        fetchCategory();
-      }
-    }, [props]);
+    fd.append("name", desc);
 
     const postData = async (e) => {
       e.preventDefault();
       try {
         const { data } = await axios.post(
-          `${Baseurl}api/v1/admin/subCategory/new`,
+          `${Baseurl}api/v1/admin/category/new`,
           fd
         );
-        showMsg("Success", "Created", "success");
+        showMsg("Success", "Category Created", "success");
         props.onHide();
         fetchData();
       } catch (e) {
         console.log(e);
       }
     };
-
-    const editHandler = async (e) => {
-      e.preventDefault();
-      try {
-        const { data } = await axios.put(
-          `${Baseurl}api/v1/admin/subCategory/update/${id}`,
-          fd
-        );
-        showMsg("Success", "Updated !", "success");
-        props.onHide();
-        fetchData();
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
     return (
       <Modal
         {...props}
@@ -104,7 +65,7 @@ const Sub = () => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={edit ? editHandler : postData}>
+          <Form onSubmit={postData}>
             <Form.Group className="mb-3">
               <Form.Label>Image</Form.Label>
               <Form.Control
@@ -117,22 +78,10 @@ const Sub = () => {
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                placeholder="Banner"
+                required
+                onChange={(e) => setDesc(e.target.value)}
               />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Category</Form.Label>
-              <Form.Select onChange={(e) => setCategoryId(e.target.value)}>
-                <option>Select Your Prefrence</option>
-                {categoryArr?.map((i, index) => (
-                  <option value={i._id} key={`categry${index}`}>
-                    {" "}
-                    {i.name}{" "}
-                  </option>
-                ))}
-              </Form.Select>
             </Form.Group>
 
             <Button variant="outline-success" type="submit">
@@ -147,10 +96,10 @@ const Sub = () => {
   const deleteData = async (id) => {
     try {
       const { data } = await axios.delete(
-        `${Baseurl}api/v1/admin/subCategory/delete/${id}`
+        `${Baseurl}api/v1/admin/delete/cat/${id}`
       );
       fetchData();
-      showMsg("Success", "Removed !", "success");
+      showMsg("Success", "Category Removed !", "success");
     } catch (e) {
       console.log(e);
     }
@@ -181,7 +130,7 @@ const Sub = () => {
           <Table>
             <thead>
               <tr>
-                <th>Image</th>
+                <th> Image</th>
                 <th>Name</th>
                 <th>Parent Category</th>
                 <th></th>
@@ -198,21 +147,11 @@ const Sub = () => {
                     />
                   </td>
                   <td> {i.subCategory} </td>
-                  <td> {i.parentCategory?.name} </td>
+                  <td> {i.parentCategory} </td>
                   <td>
                     <i
-                      className="fa-solid fa-trash mr-2"
+                      className="fa-solid fa-trash"
                       onClick={() => deleteData(i._id)}
-                    ></i>
-
-                    <i
-                      className="fa-solid fa-pen-to-square"
-                      onClick={() => {
-                        setPreviousData(i);
-                        setId(i._id);
-                        setEdit(true);
-                        setModalShow(true);
-                      }}
                     ></i>
                   </td>
                 </tr>

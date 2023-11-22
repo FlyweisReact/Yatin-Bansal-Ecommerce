@@ -31,8 +31,8 @@ const VendorLogin = () => {
       setLoading(false);
       navigate("/vendorDashboard");
     } catch (err) {
-      showMsg("Error !", "Check You'r Credentials", "danger");
-
+      console.log(err);
+      toast.error(err?.response?.data);
       setLoading(false);
     }
   };

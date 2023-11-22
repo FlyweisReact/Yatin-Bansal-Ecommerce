@@ -21,6 +21,11 @@ const Sidebar = ({ hamb, setHamb }) => {
       link: "/vendorDashboard",
       name: "Dashboard",
     },
+    // {
+    //   icon: <i className="fa-solid fa-user text-xl mr-3"></i>,
+    //   link: "/ven",
+    //   name: "Vendors",
+    // },
     {
       icon: <FaUserCircle className="text-xl mr-3" />,
       link: "/users",
@@ -35,11 +40,6 @@ const Sidebar = ({ hamb, setHamb }) => {
       icon: <BiCategory className="text-xl mr-3" />,
       link: "/category",
       name: "Categories",
-    },
-    {
-      icon: <BiCategory className="text-xl mr-3" />,
-      link: "/sub_category",
-      name: "Sub Categories",
     },
     {
       icon: <FaProductHunt className="text-xl mr-3 rounded-full " />,
@@ -66,6 +66,11 @@ const Sidebar = ({ hamb, setHamb }) => {
       link: "/order",
       name: "Orders",
     },
+    // {
+    //   icon: <BsFillCartFill className="text-xl mr-3" />,
+    //   link: "/deliveryPartner",
+    //   name: "Delivery Partner",
+    // },
     {
       icon: <BsFillCartFill className="text-xl mr-3" />,
       link: "/privacy",

@@ -37,11 +37,6 @@ const Sidebar = ({ hamb, setHamb }) => {
       name: "Categories",
     },
     {
-      icon: <BiCategory className="text-xl mr-3" />,
-      link: "/sub_category",
-      name: "Sub Categories",
-    },
-    {
       icon: <FaProductHunt className="text-xl mr-3 rounded-full " />,
       link: "/product",
       name: "Products",

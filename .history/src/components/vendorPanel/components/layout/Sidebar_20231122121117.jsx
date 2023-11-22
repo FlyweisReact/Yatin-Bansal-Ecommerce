@@ -38,8 +38,8 @@ const Sidebar = ({ hamb, setHamb }) => {
     },
     {
       icon: <BiCategory className="text-xl mr-3" />,
-      link: "/sub_category",
-      name: "Sub Categories",
+      link: "/category",
+      name: "Categories",
     },
     {
       icon: <FaProductHunt className="text-xl mr-3 rounded-full " />,

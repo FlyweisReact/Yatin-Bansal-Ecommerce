@@ -1,6 +1,6 @@
 /** @format */
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom"
 import MSG from "./components/vendorPanel/components/pages/Message/Message";
 import VendorLogin from "./components/vendorPanel/components/forms/VendorLogin";
 import VendorDashboard from "./components/vendorPanel/components/pages/VendorDashboard";
@@ -18,7 +18,6 @@ import SubAdmin from "./components/vendorPanel/components/pages/Category/SubAdmi
 import DeliveryPartner from "./components/vendorPanel/components/pages/DeliveryPartner";
 import DeliveryOrder from "./components/vendorPanel/components/pages/DeliveryOrder";
 import { ReactNotifications } from "react-notifications-component";
-import Sub from "./components/vendorPanel/components/pages/SubCategory/Sub";
 
 function App() {
   return (
@@ -41,7 +40,7 @@ function App() {
         <Route path="/deliveryOrder/:id" element={<DeliveryOrder />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/term" element={<Terms />} />
-        <Route path="/sub_category" element={<Sub />} />
+        <Route path="/sub_category" element={<}
       </Routes>
     </>
   );

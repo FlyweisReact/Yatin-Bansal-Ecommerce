@@ -150,7 +150,7 @@ const Sub = () => {
         `${Baseurl}api/v1/admin/subCategory/delete/${id}`
       );
       fetchData();
-      showMsg("Success", "Removed !", "success");
+      showMsg("Success", "Category Removed !", "success");
     } catch (e) {
       console.log(e);
     }

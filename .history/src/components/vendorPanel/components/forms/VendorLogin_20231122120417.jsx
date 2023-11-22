@@ -31,7 +31,7 @@ const VendorLogin = () => {
       setLoading(false);
       navigate("/vendorDashboard");
     } catch (err) {
-      showMsg("Error !", "Check You'r Credentials", "danger");
+      showMsg("Success", "Welcome Admin", "danger");
 
       setLoading(false);
     }

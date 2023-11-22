@@ -33,7 +33,7 @@ const Sub = () => {
   }, []);
 
   function MyVerticallyCenteredModal(props) {
-    const [image, setImage] = useState();
+    const [image, setImage] = useState(previousData?.image);
     const [name, setName] = useState(previousData?.subCategory);
     const [categoryId, setCategoryId] = useState(
       previousData?.parentCategory?._id
@@ -61,6 +61,8 @@ const Sub = () => {
       }
     }, [props]);
 
+    console.log(previousData);
+
     const postData = async (e) => {
       e.preventDefault();
       try {
@@ -79,11 +81,11 @@ const Sub = () => {
     const editHandler = async (e) => {
       e.preventDefault();
       try {
-        const { data } = await axios.put(
+        const { data } = await axios.post(
           `${Baseurl}api/v1/admin/subCategory/update/${id}`,
           fd
         );
-        showMsg("Success", "Updated !", "success");
+        showMsg("Success", "Created", "success");
         props.onHide();
         fetchData();
       } catch (e) {
@@ -105,6 +107,10 @@ const Sub = () => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={edit ? editHandler : postData}>
+            <img src={image} alt="" />
+
+      console.log(image)
+
             <Form.Group className="mb-3">
               <Form.Label>Image</Form.Label>
               <Form.Control
@@ -124,6 +130,7 @@ const Sub = () => {
 
             <Form.Group className="mb-3">
               <Form.Label>Category</Form.Label>
+              <Form.Label> {previousData?.parentCategory?.name} </Form.Label>
               <Form.Select onChange={(e) => setCategoryId(e.target.value)}>
                 <option>Select Your Prefrence</option>
                 {categoryArr?.map((i, index) => (
@@ -147,10 +154,10 @@ const Sub = () => {
   const deleteData = async (id) => {
     try {
       const { data } = await axios.delete(
-        `${Baseurl}api/v1/admin/subCategory/delete/${id}`
+        `${Baseurl}api/v1/admin/delete/cat/${id}`
       );
       fetchData();
-      showMsg("Success", "Removed !", "success");
+      showMsg("Success", "Category Removed !", "success");
     } catch (e) {
       console.log(e);
     }
