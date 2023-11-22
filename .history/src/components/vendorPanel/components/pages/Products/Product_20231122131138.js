@@ -184,7 +184,7 @@ const Product = () => {
               <Form.Label>Sub Category</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                onChange={(e) => setSubCateogry(e.target.value)}
+                onChange={(e) => setCategory(e.target.value)}
               >
                 <option>Open this select menu</option>
                 {subArr?.map((i, index) => (
@@ -337,7 +337,6 @@ const Product = () => {
                 <th>Size Available</th>
                 <th>Ratings</th>
                 <th>Category</th>
-                <th>Sub Category</th>
                 <th>Stock</th>
                 <th>Number of Reviews</th>
                 <th>Color Available</th>
@@ -366,7 +365,6 @@ const Product = () => {
                   </td>
                   <td>{i.ratings}</td>
                   <td>{i.category?.name} </td>
-                  <td>{i.subCategory?.subCategory} </td>
                   <td>{i.Stock} </td>
                   <td> {i.numOfReviews} </td>
                   <td> {i.colors} </td>

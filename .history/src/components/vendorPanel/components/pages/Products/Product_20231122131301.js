@@ -337,7 +337,7 @@ const Product = () => {
                 <th>Size Available</th>
                 <th>Ratings</th>
                 <th>Category</th>
-                <th>Sub Category</th>
+                <th>Category</th>
                 <th>Stock</th>
                 <th>Number of Reviews</th>
                 <th>Color Available</th>

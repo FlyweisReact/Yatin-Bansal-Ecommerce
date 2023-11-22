@@ -16,6 +16,7 @@ const Product = () => {
     const [categoryP, setP] = useState([]);
     const [subCategory, setSubCateogry] = useState("");
     const [subArr, setSubArr] = useState([]);
+
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
@@ -38,21 +39,9 @@ const Product = () => {
       }
     };
 
-    const get_all_subcategory = async () => {
-      try {
-        const { data } = await axios.get(
-          `${Baseurl}api/v1/admin/subCategory/getAll`
-        );
-        setSubArr(data?.data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
     useEffect(() => {
       if (props.show === true) {
         fetchCategory();
-        get_all_subcategory();
       }
     }, [props]);
 
@@ -73,7 +62,6 @@ const Product = () => {
     fd.append("colors", colors);
     fd.append("Stock", Stock);
     fd.append("category", category);
-    fd.append("subCategory", subCategory);
     Array.from(image).forEach((img) => {
       fd.append("image", img);
     });
@@ -184,13 +172,13 @@ const Product = () => {
               <Form.Label>Sub Category</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                onChange={(e) => setSubCateogry(e.target.value)}
+                onChange={(e) => setCategory(e.target.value)}
               >
                 <option>Open this select menu</option>
-                {subArr?.map((i, index) => (
+                {categoryP?.categories?.map((i, index) => (
                   <option value={i._id} key={index}>
                     {" "}
-                    {i.subCategory}{" "}
+                    {i.name}{" "}
                   </option>
                 ))}
               </Form.Select>
@@ -337,7 +325,6 @@ const Product = () => {
                 <th>Size Available</th>
                 <th>Ratings</th>
                 <th>Category</th>
-                <th>Sub Category</th>
                 <th>Stock</th>
                 <th>Number of Reviews</th>
                 <th>Color Available</th>
@@ -366,7 +353,6 @@ const Product = () => {
                   </td>
                   <td>{i.ratings}</td>
                   <td>{i.category?.name} </td>
-                  <td>{i.subCategory?.subCategory} </td>
                   <td>{i.Stock} </td>
                   <td> {i.numOfReviews} </td>
                   <td> {i.colors} </td>
