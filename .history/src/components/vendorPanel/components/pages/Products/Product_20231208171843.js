@@ -370,7 +370,7 @@ const Product = () => {
       e.preventDefault();
       try {
         const { data } = await axios.put(
-          `${Baseurl}api/v1/admin/product/${editId}`,
+          `${Baseurl}api/v1/admin/product/${id}`,
           fd,
           {
             headers: {
@@ -444,7 +444,7 @@ const Product = () => {
               <Form.Label>Category</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                // value={categoryId}
+                value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
               >
                 <option>Open this select menu</option>
@@ -461,7 +461,7 @@ const Product = () => {
               <Form.Label>Sub Category</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                // value={subcategoryId}
+                value={subcategoryId}
                 onChange={(e) => setSubCategoryId(e.target.value)}
               >
                 <option>Open this select menu</option>

@@ -338,9 +338,8 @@ const Product = () => {
         // setSize(dataEdit.name)
         setColor(dataEdit.colors);
         setStock(dataEdit.Stock);
-        // setImage(dataEdit.images?.[0]?.img);
-        // setSubCategoryId(dataEdit?.subCategory);
-        // setCategoryId(dataEdit?.category);
+        setImage(dataEdit.name);
+        setSubCategoryId(dataEdit.name);
       }
     }, [props]);
 
@@ -370,7 +369,7 @@ const Product = () => {
       e.preventDefault();
       try {
         const { data } = await axios.put(
-          `${Baseurl}api/v1/admin/product/${editId}`,
+          `${Baseurl}api/v1/admin/product/${id}`,
           fd,
           {
             headers: {
@@ -412,7 +411,6 @@ const Product = () => {
               <Form.Label>Product Name</Form.Label>
               <Form.Control
                 type="text"
-                value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
@@ -425,7 +423,6 @@ const Product = () => {
                 <Form.Control
                   as="textarea"
                   placeholder="Leave a comment here"
-                  value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </FloatingLabel>
@@ -435,7 +432,6 @@ const Product = () => {
               <Form.Control
                 type="number"
                 min={0}
-                value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Form.Group>
@@ -444,7 +440,6 @@ const Product = () => {
               <Form.Label>Category</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                // value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
               >
                 <option>Open this select menu</option>
@@ -461,7 +456,6 @@ const Product = () => {
               <Form.Label>Sub Category</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                // value={subcategoryId}
                 onChange={(e) => setSubCategoryId(e.target.value)}
               >
                 <option>Open this select menu</option>
@@ -479,7 +473,6 @@ const Product = () => {
               <Form.Control
                 type="number"
                 min={0}
-                value={Stock}
                 onChange={(e) => setStock(e.target.value)}
               />
             </Form.Group>
@@ -487,7 +480,6 @@ const Product = () => {
               <Form.Label>Colors Available</Form.Label>
               <Form.Control
                 type="text"
-                value={colors}
                 onChange={(e) => setColor(e.target.value)}
               />
             </Form.Group>
@@ -495,7 +487,6 @@ const Product = () => {
               <Form.Label>Ratings</Form.Label>
               <Form.Control
                 type="text"
-                value={ratings}
                 onChange={(e) => setRating(e.target.value)}
               />
             </Form.Group>

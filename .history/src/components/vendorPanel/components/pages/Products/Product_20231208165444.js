@@ -302,7 +302,7 @@ const Product = () => {
     const [image, setImage] = useState("");
     const [arr, setArr] = useState([]);
     const [subcategoryId, setSubCategoryId] = useState(null);
-    const [editId, setEditId] = useState("");
+    const [editId, setId] = useState("");
 
     const fetchCategory = async () => {
       try {
@@ -330,17 +330,6 @@ const Product = () => {
       if (props.show === true) {
         fetchCategory();
         get_all_subcategory();
-        setEditId(dataEdit._id);
-        setName(dataEdit.name);
-        setDescription(dataEdit.description);
-        setPrice(dataEdit.price);
-        setRating(dataEdit.ratings);
-        // setSize(dataEdit.name)
-        setColor(dataEdit.colors);
-        setStock(dataEdit.Stock);
-        // setImage(dataEdit.images?.[0]?.img);
-        // setSubCategoryId(dataEdit?.subCategory);
-        // setCategoryId(dataEdit?.category);
       }
     }, [props]);
 
@@ -366,11 +355,28 @@ const Product = () => {
       fd.append("image", img);
     });
 
+    const postData = async (e) => {
+      e.preventDefault();
+      console.log(categoryId, subcategoryId);
+      // return
+      try {
+        const { data } = await axios.post(
+          `${Baseurl}api/v1/admin/product/new`,
+          fd
+        );
+        showMsg("Success", "Product Created !", "success");
+        props.onHide();
+        fetchData();
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
     const putHandler = async (e) => {
       e.preventDefault();
       try {
         const { data } = await axios.put(
-          `${Baseurl}api/v1/admin/product/${editId}`,
+          `${Baseurl}api/v1/admin/product/${id}`,
           fd,
           {
             headers: {
@@ -412,7 +418,6 @@ const Product = () => {
               <Form.Label>Product Name</Form.Label>
               <Form.Control
                 type="text"
-                value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
@@ -425,7 +430,6 @@ const Product = () => {
                 <Form.Control
                   as="textarea"
                   placeholder="Leave a comment here"
-                  value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
               </FloatingLabel>
@@ -435,7 +439,6 @@ const Product = () => {
               <Form.Control
                 type="number"
                 min={0}
-                value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </Form.Group>
@@ -444,7 +447,6 @@ const Product = () => {
               <Form.Label>Category</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                // value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
               >
                 <option>Open this select menu</option>
@@ -461,7 +463,6 @@ const Product = () => {
               <Form.Label>Sub Category</Form.Label>
               <Form.Select
                 aria-label="Default select example"
-                // value={subcategoryId}
                 onChange={(e) => setSubCategoryId(e.target.value)}
               >
                 <option>Open this select menu</option>
@@ -479,7 +480,6 @@ const Product = () => {
               <Form.Control
                 type="number"
                 min={0}
-                value={Stock}
                 onChange={(e) => setStock(e.target.value)}
               />
             </Form.Group>
@@ -487,7 +487,6 @@ const Product = () => {
               <Form.Label>Colors Available</Form.Label>
               <Form.Control
                 type="text"
-                value={colors}
                 onChange={(e) => setColor(e.target.value)}
               />
             </Form.Group>
@@ -495,7 +494,6 @@ const Product = () => {
               <Form.Label>Ratings</Form.Label>
               <Form.Control
                 type="text"
-                value={ratings}
                 onChange={(e) => setRating(e.target.value)}
               />
             </Form.Group>

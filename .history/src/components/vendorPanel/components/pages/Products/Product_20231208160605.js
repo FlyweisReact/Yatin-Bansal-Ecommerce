@@ -8,12 +8,11 @@ import { Baseurl, showMsg } from "../../../../../Baseurl";
 
 const Product = () => {
   const [modalShow, setModalShow] = React.useState(false);
-  const [modalShowEdit, setModalShowEdit] = React.useState(false);
   const [data, setData] = useState([]);
   const [id, setId] = useState("");
-  const [dataEdit, setDataEdit] = useState("");
-  // const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(false);
   const [categoryId, setCategoryId] = useState(null);
+  const [subcategoryId, setSubCategoryId] = useState(null);
 
   function MyVerticallyCenteredModal(props) {
     const [categoryP, setP] = useState([]);
@@ -29,7 +28,6 @@ const Product = () => {
     const [category, setCategory] = useState("");
     const [image, setImage] = useState("");
     const [arr, setArr] = useState([]);
-    const [subcategoryId, setSubCategoryId] = useState(null);
 
     const fetchCategory = async () => {
       try {
@@ -77,15 +75,14 @@ const Product = () => {
     fd.append("colors", colors);
     fd.append("Stock", Stock);
     fd.append("category", categoryId);
-    fd.append("subCategory", subcategoryId);
+    fd.append("subCategory", subCategory);
     Array.from(image).forEach((img) => {
       fd.append("image", img);
     });
 
     const postData = async (e) => {
       e.preventDefault();
-      console.log(categoryId, subcategoryId);
-      // return
+      console.log(categoryId)
       try {
         const { data } = await axios.post(
           `${Baseurl}api/v1/admin/product/new`,
@@ -128,12 +125,11 @@ const Product = () => {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            {/* {edit ? "Update" : "Add Product"} */}
-            Add Product
+            {edit ? "Update" : "Add Product"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={postData}>
+          <Form onSubmit={edit ? putHandler : postData}>
             <Form.Group className="mb-3">
               <Form.Label>Product Image</Form.Label>
               <Form.Control
@@ -222,280 +218,6 @@ const Product = () => {
               <Form.Label>Ratings</Form.Label>
               <Form.Control
                 type="text"
-                onChange={(e) => setRating(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Size</Form.Label>
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  alignItems: "center",
-                }}
-              >
-                <div style={{ width: "90%", margin: "0" }}>
-                  <Form.Control
-                    type="text"
-                    onChange={(e) => setSize(e.target.value)}
-                    value={size}
-                  />
-                </div>
-                <i
-                  className="fa-solid fa-plus"
-                  onClick={() => arrSelector(size)}
-                  style={{ cursor: "pointer" }}
-                ></i>
-              </div>
-              <ul className="mt-2">
-                {arr?.map((i, index) => (
-                  <li
-                    key={index}
-                    onClick={() => arrRemover(index)}
-                    style={{ listStyle: "disc" }}
-                  >
-                    <span
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "20px",
-                      }}
-                    >
-                      {i}{" "}
-                      <i
-                        className="fa-solid fa-minus ml-2 "
-                        style={{ cursor: "pointer" }}
-                      ></i>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </Form.Group>
-
-            <Button variant="outline-success" type="submit">
-              Submit
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    );
-  }
-
-  const handleEditFunction = (ele) => {
-    setDataEdit(ele);
-    setModalShowEdit(true);
-  };
-
-  function MyVerticallyCenteredModalEdit(props) {
-    const [categoryP, setP] = useState([]);
-    const [subCategory, setSubCateogry] = useState("");
-    const [subArr, setSubArr] = useState([]);
-    const [name, setName] = useState("");
-    const [description, setDescription] = useState("");
-    const [price, setPrice] = useState("");
-    const [ratings, setRating] = useState("");
-    const [size, setSize] = useState("");
-    const [colors, setColor] = useState("");
-    const [Stock, setStock] = useState("");
-    const [category, setCategory] = useState("");
-    const [image, setImage] = useState("");
-    const [arr, setArr] = useState([]);
-    const [subcategoryId, setSubCategoryId] = useState(null);
-    const [editId, setEditId] = useState("");
-
-    const fetchCategory = async () => {
-      try {
-        const { data } = await axios.get(
-          `${Baseurl}api/v1/catogory/getAllCategory`
-        );
-        setP(data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    const get_all_subcategory = async () => {
-      try {
-        const { data } = await axios.get(
-          `${Baseurl}/api/v1/admin/subCategory/getAllsubCategory/${categoryId}`
-        );
-        setSubArr(data?.data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    useEffect(() => {
-      if (props.show === true) {
-        fetchCategory();
-        get_all_subcategory();
-        setEditId(dataEdit._id);
-        setName(dataEdit.name);
-        setDescription(dataEdit.description);
-        setPrice(dataEdit.price);
-        setRating(dataEdit.ratings);
-        // setSize(dataEdit.name)
-        setColor(dataEdit.colors);
-        setStock(dataEdit.Stock);
-        // setImage(dataEdit.images?.[0]?.img);
-        // setSubCategoryId(dataEdit?.subCategory);
-        // setCategoryId(dataEdit?.category);
-      }
-    }, [props]);
-
-    const arrSelector = () => {
-      setArr((prev) => [...prev, size]);
-      setSize("");
-    };
-
-    const arrRemover = (index) => {
-      setArr((prev) => prev.filter((_, i) => i !== index));
-    };
-
-    const fd = new FormData();
-    fd.append("name", name);
-    fd.append("description", description);
-    fd.append("price", price);
-    fd.append("ratings", ratings);
-    fd.append("colors", colors);
-    fd.append("Stock", Stock);
-    fd.append("category", categoryId);
-    fd.append("subCategory", subcategoryId);
-    Array.from(image).forEach((img) => {
-      fd.append("image", img);
-    });
-
-    const putHandler = async (e) => {
-      e.preventDefault();
-      try {
-        const { data } = await axios.put(
-          `${Baseurl}api/v1/admin/product/${editId}`,
-          fd,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        showMsg("Success", "Product Updated !", "success");
-        props.onHide();
-        fetchData();
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    return (
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            {"Update"}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={putHandler}>
-            <Form.Group className="mb-3">
-              <Form.Label>Product Image</Form.Label>
-              <Form.Control
-                type="file"
-                onChange={(e) => setImage(e.target.files)}
-                multiple
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Product Name</Form.Label>
-              <Form.Control
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <FloatingLabel
-                controlId="floatingTextarea"
-                label="Description"
-                className="mb-3"
-              >
-                <Form.Control
-                  as="textarea"
-                  placeholder="Leave a comment here"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </FloatingLabel>
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Price</Form.Label>
-              <Form.Control
-                type="number"
-                min={0}
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Category</Form.Label>
-              <Form.Select
-                aria-label="Default select example"
-                // value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-              >
-                <option>Open this select menu</option>
-                {categoryP?.categories?.map((i, index) => (
-                  <option value={i._id} key={index}>
-                    {" "}
-                    {i.name}{" "}
-                  </option>
-                ))}
-              </Form.Select>
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Sub Category</Form.Label>
-              <Form.Select
-                aria-label="Default select example"
-                // value={subcategoryId}
-                onChange={(e) => setSubCategoryId(e.target.value)}
-              >
-                <option>Open this select menu</option>
-                {subArr?.map((i, index) => (
-                  <option value={i._id} key={index}>
-                    {" "}
-                    {i.subCategory}{" "}
-                  </option>
-                ))}
-              </Form.Select>
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <Form.Label>Stock</Form.Label>
-              <Form.Control
-                type="number"
-                min={0}
-                value={Stock}
-                onChange={(e) => setStock(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Colors Available</Form.Label>
-              <Form.Control
-                type="text"
-                value={colors}
-                onChange={(e) => setColor(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
-              <Form.Label>Ratings</Form.Label>
-              <Form.Control
-                type="text"
-                value={ratings}
                 onChange={(e) => setRating(e.target.value)}
               />
             </Form.Group>
@@ -592,10 +314,6 @@ const Product = () => {
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
-      <MyVerticallyCenteredModalEdit
-        show={modalShowEdit}
-        onHide={() => setModalShowEdit(false)}
-      />
       <section>
         <div className="pb-4  w-full flex justify-between items-center Heading_Container">
           <span className="tracking-widest text-slate-900 font-semibold uppercase ">
@@ -603,7 +321,7 @@ const Product = () => {
           </span>
           <button
             onClick={() => {
-              // setEdit(false);
+              setEdit(false);
               setModalShow(true);
             }}
           >
@@ -663,10 +381,9 @@ const Product = () => {
                     <i
                       className="fa-solid fa-pen-to-square"
                       onClick={() => {
-                        // setId(i._id);
-                        // setEdit(true);
-                        // setModalShow(true);
-                        handleEditFunction(i);
+                        setId(i._id);
+                        setEdit(true);
+                        setModalShow(true);
                       }}
                     ></i>
                   </td>
