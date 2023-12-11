@@ -341,10 +341,8 @@ const Product = () => {
     }, [props]);
 
     useEffect(() => {
-      if (props.show === true) {
-        get_all_subcategory();
-      }
-    }, [props, categoryId]);
+      get_all_subcategory();
+    }, [categoryId]);
 
     const arrSelector = () => {
       setArr((prev) => [...prev, size]);

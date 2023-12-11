@@ -15,6 +15,7 @@ const Product = () => {
 
   function MyVerticallyCenteredModal(props) {
     const [categoryP, setP] = useState([]);
+    const [subCategory, setSubCateogry] = useState("");
     const [subArr, setSubArr] = useState([]);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -23,6 +24,7 @@ const Product = () => {
     const [size, setSize] = useState("");
     const [colors, setColor] = useState("");
     const [Stock, setStock] = useState("");
+    const [category, setCategory] = useState("");
     const [image, setImage] = useState("");
     const [arr, setArr] = useState([]);
     const [subcategoryId, setSubCategoryId] = useState(null);
@@ -328,7 +330,7 @@ const Product = () => {
         setName(dataEdit?.name);
         setDescription(dataEdit?.description);
         setPrice(dataEdit?.price);
-        setRating(dataEdit?.ratings > 0 ? dataEdit?.ratings : 0);
+        setRating(dataEdit?.ratings > 0 ? data?.ratings : 0);
         setColor(dataEdit?.colors);
         setStock(dataEdit?.Stock);
       }
@@ -341,10 +343,8 @@ const Product = () => {
     }, [props]);
 
     useEffect(() => {
-      if (props.show === true) {
-        get_all_subcategory();
-      }
-    }, [props, categoryId]);
+      get_all_subcategory();
+    }, [categoryId]);
 
     const arrSelector = () => {
       setArr((prev) => [...prev, size]);

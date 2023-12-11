@@ -12,9 +12,12 @@ const Product = () => {
   const [data, setData] = useState([]);
   const [id, setId] = useState("");
   const [dataEdit, setDataEdit] = useState("");
+  // const [edit, setEdit] = useState(false);
+  const [categoryId, setCategoryId] = useState(null);
 
   function MyVerticallyCenteredModal(props) {
     const [categoryP, setP] = useState([]);
+    const [subCategory, setSubCateogry] = useState("");
     const [subArr, setSubArr] = useState([]);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -23,10 +26,10 @@ const Product = () => {
     const [size, setSize] = useState("");
     const [colors, setColor] = useState("");
     const [Stock, setStock] = useState("");
+    const [category, setCategory] = useState("");
     const [image, setImage] = useState("");
     const [arr, setArr] = useState([]);
     const [subcategoryId, setSubCategoryId] = useState(null);
-    const [categoryId, setCategoryId] = useState(null);
 
     const fetchCategory = async () => {
       try {
@@ -286,6 +289,7 @@ const Product = () => {
 
   function MyVerticallyCenteredModalEdit(props) {
     const [categoryP, setP] = useState([]);
+    const [subCategory, setSubCateogry] = useState("");
     const [subArr, setSubArr] = useState([]);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -294,11 +298,11 @@ const Product = () => {
     const [size, setSize] = useState("");
     const [colors, setColor] = useState("");
     const [Stock, setStock] = useState("");
+    const [category, setCategory] = useState("");
     const [image, setImage] = useState("");
     const [arr, setArr] = useState([]);
     const [subcategoryId, setSubCategoryId] = useState(null);
     const [editId, setEditId] = useState("");
-    const [categoryId, setCategoryId] = useState(null);
 
     const fetchCategory = async () => {
       try {
@@ -324,27 +328,23 @@ const Product = () => {
 
     useEffect(() => {
       if (props.show === true) {
+        fetchCategory();
+        get_all_subcategory();
         setEditId(dataEdit?._id);
         setName(dataEdit?.name);
         setDescription(dataEdit?.description);
         setPrice(dataEdit?.price);
-        setRating(dataEdit?.ratings > 0 ? dataEdit?.ratings : 0);
+        setRating(dataEdit?.ratings > 0 ? data?.ratings : 0);
         setColor(dataEdit?.colors);
         setStock(dataEdit?.Stock);
       }
     }, [props]);
 
-    useEffect(() => {
-      if (props.show === true) {
-        fetchCategory();
-      }
-    }, [props]);
 
     useEffect(() => {
-      if (props.show === true) {
-        get_all_subcategory();
-      }
-    }, [props, categoryId]);
+      
+    })
+
 
     const arrSelector = () => {
       setArr((prev) => [...prev, size]);
@@ -446,6 +446,7 @@ const Product = () => {
               <Form.Label>Category</Form.Label>
               <Form.Select
                 aria-label="Default select example"
+                // value={categoryId}
                 onChange={(e) => setCategoryId(e.target.value)}
               >
                 <option>Open this select menu</option>
@@ -462,6 +463,7 @@ const Product = () => {
               <Form.Label>Sub Category</Form.Label>
               <Form.Select
                 aria-label="Default select example"
+                // value={subcategoryId}
                 onChange={(e) => setSubCategoryId(e.target.value)}
               >
                 <option>Open this select menu</option>
@@ -603,6 +605,7 @@ const Product = () => {
           </span>
           <button
             onClick={() => {
+              // setEdit(false);
               setModalShow(true);
             }}
           >
@@ -662,6 +665,9 @@ const Product = () => {
                     <i
                       className="fa-solid fa-pen-to-square"
                       onClick={() => {
+                        // setId(i._id);
+                        // setEdit(true);
+                        // setModalShow(true);
                         handleEditFunction(i);
                       }}
                     ></i>
