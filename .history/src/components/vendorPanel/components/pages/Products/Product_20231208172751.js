@@ -294,7 +294,7 @@ const Product = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [ratings, setRating] = useState(0);
+    const [ratings, setRating] = useState("");
     const [size, setSize] = useState("");
     const [colors, setColor] = useState("");
     const [Stock, setStock] = useState("");
